@@ -1,8 +1,16 @@
 import Router from 'next/router'
 import Head from 'next/head'
 import nprogress from 'nprogress'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import Layout from '@/components/Layout'
+import { extendTheme } from '@chakra-ui/react'
+
+const config = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+}
+
+const theme = extendTheme({ config })
 
 export default function App({ Component, pageProps }) {
   return (
@@ -10,7 +18,8 @@ export default function App({ Component, pageProps }) {
       <Head>
 
       </Head>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Layout>
           <Component {...pageProps}/>
         </Layout>
