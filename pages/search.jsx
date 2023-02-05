@@ -1,23 +1,24 @@
 import Property from "@/components/Property";
 import SearchFilters from "@/components/SearchFilters";
-import { Box, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Flex, Icon, Text, useColorMode } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BsFilter } from "react-icons/bs";
 import noresult from '@/assets/noresult.svg'
 import Image from "next/image";
 import { baseUrl, fetchApi } from "@/utils/fetchApi";
+import { colors } from "@/styles/theme";
 
-const search = ({ properties }) => {
+const Search = ({ properties }) => {
   const [searchFilters, setSearchFilters] = useState(false);
+  const color = colors();
   const router = useRouter();
+
   return (
     <Box>
       <Flex
         cursor={"pointer"}
-        bg="gray.100"
-        borderBottom={"1px"}
-        borderColor="gray.100"
+        bg={color.gray[100]}
         p="2"
         fontWeight={"black"}
         fontSize="lg"
@@ -30,9 +31,9 @@ const search = ({ properties }) => {
       </Flex>
       {searchFilters && <SearchFilters/>}
       <Text fontSize={'2xl'} p='4' fontWeight={'bold'}>
-        Properties {router.query.purpose || 'for-rent'}
+        Properties {router.query.purpose}
       </Text>
-      <Flex flexWrap={'wrap'}>
+      <Flex flexWrap={'wrap'} justifyContent='center'>
         {properties?.map(prop=><Property key={prop.id} property={prop}/>)}
       </Flex>
       {properties?.length === 0 && (
@@ -45,7 +46,7 @@ const search = ({ properties }) => {
   );
 };
 
-export default search;
+export default Search;
 
 
 export async function getServerSideProps({ query }){
@@ -61,7 +62,6 @@ export async function getServerSideProps({ query }){
   const categoryExternalID = query.categoryExternalID || '4';
 
   const data = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`);
-  console.log('********',data)
   return {
     props: {
       properties: data?.hits

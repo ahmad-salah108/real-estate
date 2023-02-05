@@ -1,29 +1,26 @@
-import Router from 'next/router'
-import Head from 'next/head'
-import nprogress from 'nprogress'
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import Layout from '@/components/Layout'
-import { extendTheme } from '@chakra-ui/react'
+import Router from "next/router";
+import Head from "next/head";
+import nprogress from "nprogress";
+import {
+  ChakraProvider,
+  ColorModeScript,
+} from "@chakra-ui/react";
+import Layout from "@/components/Layout";
+import { theme } from "@/styles/theme";
+import '@/styles/globals.css'
 
-const config = {
-  initialColorMode: 'light',
-  useSystemColorMode: false,
-}
 
-const theme = extendTheme({ config })
 
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <Head>
-
-      </Head>
+      <Head></Head>
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Layout>
-          <Component {...pageProps}/>
+          <Component {...pageProps} />
         </Layout>
       </ChakraProvider>
     </>
-  )
+  );
 }
