@@ -4,7 +4,7 @@ import React from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
 
-const Layout = ({children}) => {
+const Layout = ({children, menuOpen}) => {
   return (
     <>
       <Head>
@@ -12,7 +12,7 @@ const Layout = ({children}) => {
       </Head>
       <Box maxWidth={'1280px'} m='auto'>
         <header>
-          <Navbar/>
+          <Navbar menu={menuOpen}/>
         </header>
         <main>
           {children}

@@ -1,6 +1,6 @@
 import Router from "next/router";
 import Head from "next/head";
-import nprogress from "nprogress";
+import NProgress from "nprogress";
 import {
   ChakraProvider,
   ColorModeScript,
@@ -8,17 +8,33 @@ import {
 import Layout from "@/components/Layout";
 import { theme } from "@/styles/theme";
 import '@/styles/globals.css'
+import { useState } from "react";
 
 
 
 export default function App({ Component, pageProps }) {
+  NProgress.configure({showSpinner: false})
+  
+  Router.events.on('routeChangeStart', ()=>{
+    NProgress.start();
+  })
+
+  Router.events.on('routeChangeComplete', ()=>{
+    NProgress.done();
+  })
+
+  const [open, setOpen] = useState(false);
+  
+  const menuOpen = (state)=>{
+    setOpen(state);
+  }
+
   return (
     <>
-      <Head></Head>
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <Layout>
-          <Component {...pageProps} />
+        <Layout menuOpen={menuOpen}>
+          <Component {...pageProps} open={open}/>
         </Layout>
       </ChakraProvider>
     </>

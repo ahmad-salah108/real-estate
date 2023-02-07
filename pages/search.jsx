@@ -9,7 +9,7 @@ import Image from "next/image";
 import { baseUrl, fetchApi } from "@/utils/fetchApi";
 import { colors } from "@/styles/theme";
 
-const Search = ({ properties }) => {
+const Search = ({ properties, open }) => {
   const [searchFilters, setSearchFilters] = useState(false);
   const color = colors();
   const router = useRouter();
@@ -29,7 +29,7 @@ const Search = ({ properties }) => {
         <Text>Search Property By Filters</Text>
         <Icon paddingLeft={"2"} w="7" as={BsFilter}></Icon>
       </Flex>
-      {searchFilters && <SearchFilters/>}
+      {searchFilters && <SearchFilters open={open}/>}
       <Text fontSize={'2xl'} p='4' fontWeight={'bold'}>
         Properties {router.query.purpose}
       </Text>

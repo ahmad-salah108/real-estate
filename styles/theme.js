@@ -12,7 +12,9 @@ export const colors = () => {
   const {colorMode} = useColorMode();
   return {
     gray: {
-      100: colorMode == 'light' ? 'gray.100' : 'whiteAlpha.200'
+      100: colorMode == 'light' ? 'gray.100' : 'whiteAlpha.200',
+      200: colorMode == 'light' ? 'gray.200' : 'gray.700',
+      600: colorMode == 'light' ? 'gray.600' : 'gray.300'
     },
   };
 };
